@@ -38,7 +38,7 @@ class TakuzuState:
         adjacent = self.board.adjacent_vertical_numbers(row, col)
         above_adjacent = adjacent[1]
         below_adjacent = adjacent[0]
-        #print(str(adjacent) + '\n')
+
         if (above_adjacent == below_adjacent and above_adjacent != None):
             if above_adjacent == 1:
                 return [row, col, 0]
@@ -66,7 +66,7 @@ class TakuzuState:
         col = key[1]
     
         adjacent = self.board.adjacent_horizontal_numbers(row, col)
-        #print(str(adjacent) + '\n')
+
         right_adjacent = adjacent[1]
         left_adjacent = adjacent[0]
 
@@ -229,8 +229,6 @@ class Board:
             tab.append(rowVals)
             rowNum += 1
 
-        #print(blank)
-        #print(tab)
         
         board = Board(tab, N, blank, rowNums, colNums, (-1, -1, -1), False, False)
 
@@ -270,9 +268,6 @@ class Takuzu(Problem):
 
         aux = {}
 
-        #print(state.board.blankPositions)
-        #print("previous action: " + str(state.board.lastPlayed))
-
         for key in state.board.blankPositions:
             row = key[0]
             col = key[1]
@@ -294,31 +289,23 @@ class Takuzu(Problem):
 
             act = state.three_in_a_row_horizontal(key)
             if act != None:
-                #print("act1")
                 state.board.auxMandatoryPlay = True
-                #print(act)
                 return [act]
             else:
                 act2 = state.three_in_a_row_vertical(key)
                 if act2 != None:
-                    #print("act2")
                     state.board.auxMandatoryPlay = True
-                    #print(act2)
                     return [act2]
             if (row not in rows_visited and state.board.rowNums[row] != state.board.N):
                 act3 = state.check_max_num_row(key)
                 rows_visited[row] = None
                 if act3 != None:
-                    #print("act3")
-                    #print(act3)
                     state.board.auxMandatoryPlay = True
                     return [act3]
             if (col not in cols_visited and state.board.colNums[col] != state.board.N):
                 act4 = state.check_max_num_col(key)
                 cols_visited[col] = None
                 if act4 != None:
-                    #print(act4)
-                    #print("act4")
                     state.board.auxMandatoryPlay = True
                     return [act4]
             
@@ -349,7 +336,6 @@ class Takuzu(Problem):
                     actions.append([i[0], i[1], 1])
 
         
-        #print("nao ha obrigatorias: " + str(actions))
 
         if len(actions) > 2:
             return actions[:2]
@@ -385,7 +371,6 @@ class Takuzu(Problem):
         col = action[1]
         val = action[2]
 
-        #print(action)
 
         tabAux = []
         for i in range(state.board.N):
@@ -397,7 +382,6 @@ class Takuzu(Problem):
 
         tabAux[row][col] = val
 
-        #print(tabAux)
         
         rowNumsAux = []
         colNumsAux = []
@@ -417,7 +401,6 @@ class Takuzu(Problem):
             if key != [row, col]:
                 blankAux.append(key)
 
-        #print(blankAux)
 
         lastPlayedAux = (row, col, val)
 
@@ -426,7 +409,6 @@ class Takuzu(Problem):
         else:
             boardAux = Board(tabAux, state.board.N, blankAux, rowNumsAux, colNumsAux, lastPlayedAux, False, False)
 
-        #print(boardAux)
 
         stateAux = TakuzuState(boardAux)
 
@@ -572,19 +554,14 @@ class Takuzu(Problem):
 
         if val != None:
 
-            #print("bro?")
 
             if (below == below2) and (below == val):
-                #print("NAO PODE SER")
                 return float('-inf')
             if (above == above2) and (above == val):
-                #print("NAO PODE SER")
                 return float('-inf')
             if left == left2 and left == val:
-                #print("NAO PODE SER")
                 return float('-inf')
             if right == right2 and right == val:
-                #print("NAO PODE SER")
                 return float('-inf')
 
             if below == above and below == val:
