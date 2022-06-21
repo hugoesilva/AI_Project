@@ -449,10 +449,6 @@ class Takuzu(Problem):
         lastMoveCol = lastMove[1]
         lastMoveVal = lastMove[2]
 
-        # se nao executou nenhuma jogada
-        if node.state.board.lastPlayed == (-1, -1, -1):
-            return float('inf')
-
         # se coluna tem zeros ou uns a mais
         if self.checkMaxNumCol(node, lastMoveCol):
             return float('inf')
@@ -650,18 +646,8 @@ if __name__ == "__main__":
 
     
     takuzuStart = Takuzu(board)
-
-    """ answer = astar_search(takuzuStart) """
-
-    """ answer = depth_first_tree_search(takuzuStart) """
     
     answer = greedy_search(takuzuStart)
-
-    """ answer = breadth_first_tree_search(takuzuStart) """
-
-
-    #instrumentedProblem = InstrumentedProblem(takuzuStart)
-    """ compare_searchers([takuzuStart], "testes", [breadth_first_tree_search, depth_first_tree_search, greedy_search, astar_search]) """
 
     print(answer.state.board)
 
